@@ -3,11 +3,15 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Trix;
+use Vyuldashev\NovaPermission\RoleSelect;
 
 class User extends Resource
 {
@@ -34,6 +38,16 @@ class User extends Resource
         'id', 'name', 'email',
     ];
 
+    public static function label()
+    {
+        return __('Vartotojai');
+    }
+
+    public static function singularLabel()
+    {
+        return __('Vartotojas');
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -45,25 +59,44 @@ class User extends Resource
         return [
             ID::make()->sortable(),
 
+            RoleSelect::make('Rolė', 'roles')->required(),
+
             Gravatar::make()->maxWidth(50),
 
-            Text::make('Name')
+            Text::make(__('Vardas'), 'name')
                 ->sortable()
                 ->rules('required', 'max:255'),
 
-            Text::make('Email')
+            Text::make(__('Pavardė'), 'surname')->hideFromIndex(),
+
+            Text::make(__('Telefonas'), 'phone'),
+
+            Text::make(__('Miestas'), 'city'),
+
+            Date::make(__('Gimimo data'), 'birthdate')->hideFromIndex(),
+
+            Boolean::make(__('Gali vairuoti'), 'can_drive'),
+
+            Boolean::make(__('Turi automobilį'), 'has_car'),
+
+            Trix::make(__('Komentaras'), 'comment'),
+
+            Boolean::make(__('Patvirtintas'), 'approved'),
+
+            Text::make(__('El. paštas'), 'email')
                 ->sortable()
+                ->required()
                 ->rules('required', 'email', 'max:254')
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
 
-            Password::make('Password')
+            Password::make(__('Slaptažodis'))
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
 
-            MorphToMany::make('Roles', 'roles', \Vyuldashev\NovaPermission\Role::class),
-            MorphToMany::make('Permissions', 'permissions', \Vyuldashev\NovaPermission\Permission::class),
+
+            MorphToMany::make(__('Leidimai'), 'permissions', \Vyuldashev\NovaPermission\Permission::class),
         ];
     }
 
