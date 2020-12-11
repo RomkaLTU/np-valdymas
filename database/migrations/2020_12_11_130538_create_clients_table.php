@@ -21,8 +21,8 @@ class CreateClientsTable extends Migration
             $table->enum('type', [
                 'personal',
                 'company',
-            ]);
-            $table->string('company_name');
+            ])->default('company');
+            $table->string('company_name')->nullable();
             $table->string('company_code')->nullable();
             $table->string('company_vat_code')->nullable();
             $table->string('company_ddress')->nullable();
