@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -60,14 +61,18 @@ class Client extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Pavadinimas'), 'name'),
-            Text::make(__('Adresas'), 'address'),
-            Text::make(__('El. paštas'), 'email'),
             Text::make(__('Telefonas'), 'phone'),
-            Text::make(__('Kontaktinis asmuo'), 'contact_person')->hideFromIndex(),
+            Text::make(__('El. paštas'), 'email'),
+            Select::make(__('Tipas'), 'type')->options([
+                'personal' => 'Privatus',
+                'company' => 'Įmonė',
+            ]),
+            Text::make(__('Įmonės pavadinimas'), 'company_name'),
             Text::make(__('Įmonės kodas'), 'company_code')->hideFromIndex(),
-            Text::make(__('Įmonės PVM kodas'), 'company_vat')->hideFromIndex(),
-            Text::make(__('Banko sąsk. nr.'), 'bank_account')->hideFromIndex(),
-            Text::make(__('Banko sąsk. nr.'), 'bank_account')->hideFromIndex(),
+            Text::make(__('Įmonės PVM kodas'), 'company_vat_code')->hideFromIndex(),
+            Text::make(__('Įmonės adresas'), 'company_ddress')->hideFromIndex(),
+            Text::make(__('Atsakingo asmens pareigos'), 'responsible_person_role')->hideFromIndex(),
+            Text::make(__('Atsakingo asmens vardas'), 'responsible_person_name')->hideFromIndex(),
         ];
     }
 
