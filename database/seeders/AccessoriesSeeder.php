@@ -15,14 +15,12 @@ class AccessoriesSeeder extends Seeder
     public function run()
     {
         $data = [
-            [
-                ['title' => 'Siena balta be langu'],
-                ['title' => 'Siena balta su langais'],
-                ['title' => 'Konstrukcinė detalė mp7'],
-                ['title' => 'Pompa 2kw (geltona)'],
-                ['title' => 'Kilimėlis pradžiai'],
-                ['title' => 'Prailgintuvas 20m vienfazis'],
-            ]
+            ['title' => 'Siena balta be langu'],
+            ['title' => 'Siena balta su langais'],
+            ['title' => 'Konstrukcinė detalė mp7'],
+            ['title' => 'Pompa 2kw (geltona)'],
+            ['title' => 'Kilimėlis pradžiai'],
+            ['title' => 'Prailgintuvas 20m vienfazis'],
         ];
 
         Accessories::insert($data);
