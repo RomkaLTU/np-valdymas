@@ -23,11 +23,14 @@
         "laravel/nova": "^3.0.0",
         "laravel/tinker": "^2.5",
         "spatie/laravel-permission": "^3.18",
-        "vyuldashev/nova-permission": "^2.10"
+        "vyuldashev/nova-permission": "^2.10",
+        "whitecube/nova-flexible-content": "^0.2.7"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.5",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
+        "laracasts/generators": "^2.0",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
         "phpunit/phpunit": "^9.3.3"
