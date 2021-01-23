@@ -17,6 +17,7 @@ class CreateEquipmentTable extends Migration
             $table->id();
             $table->string('title');
             $table->integer('qty');
+            $table->json('assembly_wares')->nullable();
             $table->timestamps();
         });
     }

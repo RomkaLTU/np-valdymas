@@ -3,10 +3,14 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Panel;
+use Whitecube\NovaFlexibleContent\Flexible;
 
 class Equipment extends Resource
 {
@@ -44,12 +48,27 @@ class Equipment extends Resource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function fields(Request $request)
+    public function fields(Request $request): array
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Pavadinimas'), 'title'),
             Number::make(__('Kiekis'), 'qty'),
+
+            new Panel(__('Montažo važtaraščiai'), $this->assemblyWareFields()),
+        ];
+    }
+
+    protected function assemblyWareFields(): array
+    {
+        return [
+            Flexible::make(__('Važtaraščiai'), 'assembly_wares')->addLayout(__('Važtaraštis'), 'assembly_ware', [
+                Text::make(__('Važtaraščio pavadinimas'), 'title'),
+                Flexible::make(__('Važtaraščio eilutės'), 'assembly_ware_lines')->addLayout(__('Eilutė'), 'assembly_ware_line', [
+                    Select::make(__('Aksesuaras'), 'accessory_id')->searchable()->nullable()->options(\App\Models\Accessories::all()->pluck('title', 'id')),
+                    Number::make(__('Kiekis'), 'qty'),
+                ])->button(__('Pridėti eilutę'))->fullWidth(),
+            ])->button(__('Pridėti važtaraštį'))->fullWidth(),
         ];
     }
 
