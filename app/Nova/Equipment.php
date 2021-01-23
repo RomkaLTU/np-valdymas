@@ -56,6 +56,7 @@ class Equipment extends Resource
             Number::make(__('Kiekis'), 'qty'),
 
             new Panel(__('Montažo važtaraščiai'), $this->assemblyWareFields()),
+            new Panel(__('Demontažo važtaraščiai'), $this->deAssemblyWareFields()),
         ];
     }
 
@@ -65,7 +66,20 @@ class Equipment extends Resource
             Flexible::make(__('Važtaraščiai'), 'assembly_wares')->addLayout(__('Važtaraštis'), 'assembly_ware', [
                 Text::make(__('Važtaraščio pavadinimas'), 'title'),
                 Flexible::make(__('Važtaraščio eilutės'), 'assembly_ware_lines')->addLayout(__('Eilutė'), 'assembly_ware_line', [
-                    Select::make(__('Aksesuaras'), 'accessory_id')->searchable()->nullable()->options(\App\Models\Accessories::all()->pluck('title', 'id')),
+                    Select::make(__('Aksesuaras'), 'accessory_id')->searchable()->nullable()->options(\App\Models\Accessories::all()->pluck('title', 'title')),
+                    Number::make(__('Kiekis'), 'qty'),
+                ])->button(__('Pridėti eilutę'))->fullWidth(),
+            ])->button(__('Pridėti važtaraštį'))->fullWidth(),
+        ];
+    }
+
+    protected function deAssemblyWareFields(): array
+    {
+        return [
+            Flexible::make(__('Važtaraščiai'), 'de_assembly_wares')->addLayout(__('Važtaraštis'), 'de_assembly_ware', [
+                Text::make(__('Važtaraščio pavadinimas'), 'title'),
+                Flexible::make(__('Važtaraščio eilutės'), 'de_assembly_ware_lines')->addLayout(__('Eilutė'), 'de_assembly_ware_line', [
+                    Select::make(__('Aksesuaras'), 'accessory_id')->searchable()->nullable()->options(\App\Models\Accessories::all()->pluck('title', 'title')),
                     Number::make(__('Kiekis'), 'qty'),
                 ])->button(__('Pridėti eilutę'))->fullWidth(),
             ])->button(__('Pridėti važtaraštį'))->fullWidth(),
