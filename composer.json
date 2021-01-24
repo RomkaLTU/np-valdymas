@@ -15,6 +15,7 @@
     ],
     "require": {
         "php": "^7.3|^8.0",
+        "64robots/nova-fields": "^0.18.0",
         "cloudcake/nova-snowball": "^1.2",
         "digital-creative/collapsible-resource-manager": "^1.2",
         "fideloper/proxy": "^4.4",
