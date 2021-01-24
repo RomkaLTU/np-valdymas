@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Nova\Accessories;
 use App\Nova\Client;
 use App\Nova\Equipment;
+use App\Nova\Event;
 use App\Nova\ExpenseType;
 use App\Nova\Seller;
 use App\Nova\User;
@@ -92,7 +93,13 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new CollapsibleResourceManager([
                 'navigation' => [
                     TopLevelResource::make([
-                        'label' => 'Įranga',
+                        'label' => __('Renginiai'),
+                        'resources' => [
+                            Event::class,
+                        ]
+                    ]),
+                    TopLevelResource::make([
+                        'label' => __('Įranga'),
                         'resources' => [
                             Equipment::class,
                             Accessories::class,
@@ -100,7 +107,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                         ]
                     ]),
                     TopLevelResource::make([
-                        'label' => 'Kita',
+                        'label' => __('Kita'),
                         'resources' => [
                             Client::class,
                             Seller::class,
@@ -108,18 +115,18 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                         ]
                     ]),
                     TopLevelResource::make([
-                        'label' => 'Sistema',
+                        'label' => __('Sistema'),
                         'resources' => [
                             User::class,
                             InternalLink::make([
-                                'label' => 'Leidimai',
+                                'label' => __('Leidimai'),
                                 'badge' => null, // can be used to indicate the number of updates or notifications in this resource
                                 'icon' => null, // HTML/SVG string or callback that produces one, see below
                                 'target' => '_self',
                                 'path' => '/resources/permissions',
                             ]),
                             InternalLink::make([
-                                'label' => 'Rolės',
+                                'label' => __('Rolės'),
                                 'badge' => null, // can be used to indicate the number of updates or notifications in this resource
                                 'icon' => null, // HTML/SVG string or callback that produces one, see below
                                 'target' => '_self',
