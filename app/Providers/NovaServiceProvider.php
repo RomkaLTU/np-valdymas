@@ -2,10 +2,23 @@
 
 namespace App\Providers;
 
+use App\Nova\Accessories;
+use App\Nova\Client;
+use App\Nova\Equipment;
+use App\Nova\ExpenseType;
+use App\Nova\Seller;
+use App\Nova\User;
+use App\Nova\Warehouse;
+use DigitalCreative\CollapsibleResourceManager\CollapsibleResourceManager;
+use DigitalCreative\CollapsibleResourceManager\Resources\InternalLink;
+use DigitalCreative\CollapsibleResourceManager\Resources\NovaResource;
+use DigitalCreative\CollapsibleResourceManager\Resources\RawResource;
+use DigitalCreative\CollapsibleResourceManager\Resources\TopLevelResource;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use Vyuldashev\NovaPermission\NovaPermissionTool;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -76,6 +89,46 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
+            new CollapsibleResourceManager([
+                'navigation' => [
+                    TopLevelResource::make([
+                        'label' => 'Įranga',
+                        'resources' => [
+                            Equipment::class,
+                            Accessories::class,
+                            Warehouse::class,
+                        ]
+                    ]),
+                    TopLevelResource::make([
+                        'label' => 'Kita',
+                        'resources' => [
+                            Client::class,
+                            Seller::class,
+                            ExpenseType::class,
+                        ]
+                    ]),
+                    TopLevelResource::make([
+                        'label' => 'Sistema',
+                        'resources' => [
+                            User::class,
+                            InternalLink::make([
+                                'label' => 'Leidimai',
+                                'badge' => null, // can be used to indicate the number of updates or notifications in this resource
+                                'icon' => null, // HTML/SVG string or callback that produces one, see below
+                                'target' => '_self',
+                                'path' => '/resources/permissions',
+                            ]),
+                            InternalLink::make([
+                                'label' => 'Rolės',
+                                'badge' => null, // can be used to indicate the number of updates or notifications in this resource
+                                'icon' => null, // HTML/SVG string or callback that produces one, see below
+                                'target' => '_self',
+                                'path' => '/resources/roles',
+                            ]),
+                        ]
+                    ]),
+                ]
+            ]),
             \Vyuldashev\NovaPermission\NovaPermissionTool::make(),
         ];
     }
