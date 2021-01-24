@@ -16,6 +16,7 @@ class CreateSellersTable extends Migration
         Schema::create('sellers', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('company_name');
             $table->enum('type', ['vat_payer', 'non_vat_payer'])->nullable();
             $table->string('code')->nullable();
             $table->string('vat_code')->nullable();

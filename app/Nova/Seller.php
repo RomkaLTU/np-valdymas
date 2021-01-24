@@ -60,6 +60,7 @@ class Seller extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Pavadinimas'), 'title'),
+            Text::make(__('Įmonės pavadinimas'), 'company_name'),
             Select::make(__('Tipas'))->options([
                 'vat_payer' => __('PVM mokėtojas'),
                 'non_vat_payer' => __('Ne PVM mokėtojas'),
