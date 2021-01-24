@@ -3,8 +3,16 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Panel;
+use Romkaltu\FieldsRow\FieldsRowClose;
+use Romkaltu\FieldsRow\FieldsRowOpen;
+use Romkaltu\OpenRow\OpenRow;
+use Romkaltu\TestField\TestField;
 
 class Event extends Resource
 {
@@ -47,10 +55,32 @@ class Event extends Resource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function fields(Request $request)
+    public function fields(Request $request): array
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+
+            \R64\NovaFields\Select::make(__('Užsakymo tipas'), 'order_type')->options([
+                'equipment_rent' => __('Įrangos nuoma'),
+                'entertainment_and_equipment_rent' => __('Pramogų ir įrangos nuoma'),
+                'equipment_rent_inplace' => __('Įrangos nuoma iš vietos'),
+            ])
+                ->labelClasses('w-full pt-4')
+                ->wrapperClasses('flex flex-col w-1/3 float-left flex-1 px-4 pl-8')
+                ->fieldClasses('w-full py-4'),
+
+            \R64\NovaFields\Select::make(__('Regionas'), 'region')->options([
+                'vilnius' => __('Vilniaus'),
+                'klaipeda' => __('Klaipėdos'),
+            ])
+                ->labelClasses('w-full pt-4')
+                ->wrapperClasses('flex flex-col w-1/3 float-left flex-1 px-4')
+                ->fieldClasses('w-full py-4'),
+
+            \R64\NovaFields\BelongsTo::make(__('Pardavėjas'), 'seller', Seller::class)
+                ->labelClasses('w-full pt-4')
+                ->wrapperClasses('flex flex-col w-1/3 flex-1 px-4 pr-8')
+                ->fieldClasses('w-full py-4'),
         ];
     }
 

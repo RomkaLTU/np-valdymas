@@ -15,6 +15,9 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->enum('order_type', ['equipment_rent', 'entertainment_and_equipment_rent', 'equipment_rent_inplace']);
+            $table->enum('region', ['vilnius', 'klaipeda']);
+            $table->foreignId('seller_id')->constrained();
             $table->timestamps();
         });
     }
