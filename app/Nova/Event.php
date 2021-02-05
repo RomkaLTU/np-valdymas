@@ -61,7 +61,7 @@ class Event extends Resource
                 'equipment_rent' => __('Įrangos nuoma'),
                 'entertainment_and_equipment_rent' => __('Pramogų ir įrangos nuoma'),
                 'equipment_rent_inplace' => __('Įrangos nuoma iš vietos'),
-            ])->size('w-1/3'),
+            ])->size('w-1/3')->rules('required'),
 
             Select::make(__('Regionas'), 'region')->options([
                 'vilnius' => __('Vilniaus'),
