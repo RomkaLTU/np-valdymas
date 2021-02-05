@@ -3,16 +3,13 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laraning\NovaTimeField\TimeField;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Panel;
-use Romkaltu\FieldsRow\FieldsRowClose;
-use Romkaltu\FieldsRow\FieldsRowOpen;
-use Romkaltu\OpenRow\OpenRow;
-use Romkaltu\TestField\TestField;
 
 class Event extends Resource
 {
@@ -60,27 +57,36 @@ class Event extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
 
-            \R64\NovaFields\Select::make(__('Užsakymo tipas'), 'order_type')->options([
+            Select::make(__('Uzsakymo tipas'), 'order_type')->options([
                 'equipment_rent' => __('Įrangos nuoma'),
                 'entertainment_and_equipment_rent' => __('Pramogų ir įrangos nuoma'),
                 'equipment_rent_inplace' => __('Įrangos nuoma iš vietos'),
-            ])
-                ->labelClasses('w-full pt-4')
-                ->wrapperClasses('flex flex-col w-1/3 float-left flex-1 px-4 pl-8')
-                ->fieldClasses('w-full py-4'),
+            ])->size('w-1/3'),
 
-            \R64\NovaFields\Select::make(__('Regionas'), 'region')->options([
+            Select::make(__('Regionas'), 'region')->options([
                 'vilnius' => __('Vilniaus'),
                 'klaipeda' => __('Klaipėdos'),
-            ])
-                ->labelClasses('w-full pt-4')
-                ->wrapperClasses('flex flex-col w-1/3 float-left flex-1 px-4')
-                ->fieldClasses('w-full py-4'),
+            ])->size('w-1/3'),
 
-            \R64\NovaFields\BelongsTo::make(__('Pardavėjas'), 'seller', Seller::class)
-                ->labelClasses('w-full pt-4')
-                ->wrapperClasses('flex flex-col w-1/3 flex-1 px-4 pr-8')
-                ->fieldClasses('w-full py-4'),
+            BelongsTo::make(__('Pardavėjas'), 'seller', Seller::class)->size('w-1/3'),
+
+            Date::make(__('Montavimo data'), 'install_date')->stacked(true),
+            TimeField::make(__('Montavimo pradžios laikas'), 'install_time_start')->hideFromIndex()->stacked(true)->size('w-1/2')->nullable(),
+            TimeField::make(__('Montavimo pabaigos laikas'), 'install_time_end')->hideFromIndex()->stacked(true)->size('w-1/2')->nullable(),
+            Boolean::make('Suderinti', 'install_time_start_need_conf')->hideFromIndex()->size('w-1/2'),
+            Boolean::make('Suderinti', 'install_time_end_need_conf')->hideFromIndex()->size('w-1/2'),
+
+            Date::make(__('Pramogų data'), 'entertainment_date')->stacked(true)->if(['order_type'], fn($value) => $value['order_type'] === 'entertainment_and_equipment_rent'),
+            TimeField::make(__('Pramogų pradžios laikas'), 'entertainment_time_start')->hideFromIndex()->stacked(true)->size('w-1/2')->nullable()->if(['order_type'], fn($value) => $value['order_type'] === 'entertainment_and_equipment_rent'),
+            TimeField::make(__('Pramogų pabaigos laikas'), 'entertainment_time_end')->hideFromIndex()->stacked(true)->size('w-1/2')->nullable()->if(['order_type'], fn($value) => $value['order_type'] === 'entertainment_and_equipment_rent'),
+            Boolean::make('Suderinti', 'entertainment_time_start_need_conf')->hideFromIndex()->size('w-1/2')->if(['order_type'], fn($value) => $value['order_type'] === 'entertainment_and_equipment_rent'),
+            Boolean::make('Suderinti', 'entertainment_time_end_need_conf')->hideFromIndex()->size('w-1/2')->if(['order_type'], fn($value) => $value['order_type'] === 'entertainment_and_equipment_rent'),
+
+            Date::make(__('Demontavimo data'), 'uninstall_date')->stacked(true),
+            TimeField::make(__('Demontavimo pradžios laikas'), 'uninstall_time_start')->hideFromIndex()->stacked(true)->size('w-1/2')->nullable(),
+            TimeField::make(__('Demontavimo pabaigos laikas'), 'uninstall_time_end')->hideFromIndex()->stacked(true)->size('w-1/2')->nullable(),
+            Boolean::make('Suderinti', 'uninstall_time_start_need_conf')->hideFromIndex()->size('w-1/2'),
+            Boolean::make('Suderinti', 'uninstall_time_end_need_conf')->hideFromIndex()->size('w-1/2'),
         ];
     }
 

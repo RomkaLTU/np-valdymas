@@ -10,6 +10,12 @@ class Event extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'install_date' => 'date',
+        'uninstall_date' => 'date',
+        'entertainment_date' => 'date',
+    ];
+
     public function seller(): BelongsTo
     {
         return $this->belongsTo(Seller::class);

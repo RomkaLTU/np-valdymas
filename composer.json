@@ -11,19 +11,26 @@
         {
             "type": "vcs",
             "url": "https://github.com/RomkaLTU/CustomNova"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Customstyles"
         }
     ],
     "require": {
-        "php": "^7.3|^8.0",
-        "64robots/nova-fields": "^0.18.0",
+        "php": "^7.4|^8.0",
         "cloudcake/nova-snowball": "^1.2",
+        "codenco-dev/nova-grid-system": "^1.0",
         "digital-creative/collapsible-resource-manager": "^1.2",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "izi-dev/nova-conditional-field": "^2.1",
+        "laraning/nova-time-field": "^1.2",
         "laravel/framework": "^8.12",
         "laravel/nova": "^3.0.0",
         "laravel/tinker": "^2.5",
+        "romkaltu/customstyles": "*",
         "spatie/laravel-permission": "^3.18",
         "vyuldashev/nova-permission": "^2.10",
         "whitecube/nova-flexible-content": "^0.2.7"

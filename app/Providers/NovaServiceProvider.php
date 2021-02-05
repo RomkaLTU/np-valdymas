@@ -10,6 +10,7 @@ use App\Nova\ExpenseType;
 use App\Nova\Seller;
 use App\Nova\User;
 use App\Nova\Warehouse;
+use CodencoDev\NovaGridSystem\NovaGridSystem;
 use DigitalCreative\CollapsibleResourceManager\CollapsibleResourceManager;
 use DigitalCreative\CollapsibleResourceManager\Resources\InternalLink;
 use DigitalCreative\CollapsibleResourceManager\Resources\NovaResource;
@@ -137,6 +138,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 ]
             ]),
             \Vyuldashev\NovaPermission\NovaPermissionTool::make(),
+            new NovaGridSystem(),
         ];
     }
 
