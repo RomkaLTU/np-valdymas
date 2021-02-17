@@ -22,6 +22,8 @@
         "cloudcake/nova-snowball": "^1.2",
         "codenco-dev/nova-grid-system": "^1.0",
         "digital-creative/collapsible-resource-manager": "^1.2",
+        "digital-creative/conditional-container": "^1.2",
+        "dillingham/nova-attach-many": "^1.1",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -31,6 +33,7 @@
         "laravel/nova": "^3.0.0",
         "laravel/tinker": "^2.5",
         "romkaltu/customstyles": "*",
+        "shivanshrajpoot/nova-create-or-add": "^0.0.1",
         "spatie/laravel-permission": "^3.18",
         "vyuldashev/nova-permission": "^2.10",
         "whitecube/nova-flexible-content": "^0.2.7"

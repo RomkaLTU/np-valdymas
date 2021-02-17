@@ -31,13 +31,13 @@ class Client extends Resource
      */
     public static $search = [
         'name',
-        'address',
+        'company_address',
+        'company_name',
+        'company_vat_code',
         'email',
         'phone',
-        'contact_person',
         'company_code',
-        'bank_account',
-        'company_vat',
+        'company_vat_code',
     ];
 
     public static function label()
@@ -70,7 +70,7 @@ class Client extends Resource
             Text::make(__('Įmonės pavadinimas'), 'company_name'),
             Text::make(__('Įmonės kodas'), 'company_code')->hideFromIndex(),
             Text::make(__('Įmonės PVM kodas'), 'company_vat_code')->hideFromIndex(),
-            Text::make(__('Įmonės adresas'), 'company_ddress')->hideFromIndex(),
+            Text::make(__('Įmonės adresas'), 'company_address')->hideFromIndex(),
             Text::make(__('Atsakingo asmens pareigos'), 'responsible_person_role')->hideFromIndex(),
             Text::make(__('Atsakingo asmens vardas'), 'responsible_person_name')->hideFromIndex(),
         ];

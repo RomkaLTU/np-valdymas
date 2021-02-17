@@ -25,7 +25,7 @@ class CreateClientsTable extends Migration
             $table->string('company_name')->nullable();
             $table->string('company_code')->nullable();
             $table->string('company_vat_code')->nullable();
-            $table->string('company_ddress')->nullable();
+            $table->string('company_address')->nullable();
             $table->string('responsible_person_role')->nullable();
             $table->string('responsible_person_name')->nullable();
             $table->timestamps();

@@ -18,14 +18,14 @@ class CliensTableSeeder extends Seeder
             [
                 'name' => 'Jonavos rajono savivaldybės administracija',
                 'phone' => '867124328',
-                'company_ddress' => 'Jonavos arena',
+                'company_address' => 'Jonavos arena',
                 'email' => 'kristina.jaskuniene@jkc.lt',
                 'type' => 'company',
             ],
             [
                 'name' => 'Eventum Group - Renginių organizatoriai',
                 'phone' => '861830922',
-                'company_ddress' => 'Luokesų dvaras, Molėtų raj. (60km nuo Vilniaus)',
+                'company_address' => 'Luokesų dvaras, Molėtų raj. (60km nuo Vilniaus)',
                 'email' => 'ruta@eventumgroup.lt',
                 'type' => 'company',
                 'responsible_person_name' => 'Rūta',
