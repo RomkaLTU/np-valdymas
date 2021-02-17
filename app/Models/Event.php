@@ -15,6 +15,10 @@ class Event extends Model
         'install_date' => 'date',
         'uninstall_date' => 'date',
         'entertainment_date' => 'date',
+        'equipment' => 'array',
+        'accessories' => 'array',
+        'equipment_montage_ground' => 'array',
+        'entertainment_el_provider' => 'array',
     ];
 
     public function seller(): BelongsTo
