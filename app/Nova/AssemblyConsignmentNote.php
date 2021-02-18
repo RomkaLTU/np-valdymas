@@ -3,25 +3,23 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\BelongsToMany;
-use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Panel;
 use Whitecube\NovaFlexibleContent\Flexible;
 
-class Equipment extends Resource
+class AssemblyConsignmentNote extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Equipment::class;
+    public static $model = \App\Models\AssemblyConsignmentNote::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -41,7 +39,12 @@ class Equipment extends Resource
 
     public static function label()
     {
-        return __('Įranga');
+        return __('Mont. važtaraščiai');
+    }
+
+    public static function singularLabel()
+    {
+        return __('Mont. važtaraštis');
     }
 
     /**
@@ -50,14 +53,17 @@ class Equipment extends Resource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function fields(Request $request): array
+    public function fields(Request $request)
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Text::make(__('Pavadinimas'), 'title'),
-            Number::make(__('Kiekis'), 'qty'),
-            HasMany::make('Mont. Važtaraščiai', 'assemblyconsignment', AssemblyConsignmentNote::class),
-            HasMany::make('Demont. Važtaraščiai', 'dismantlingconsignment', DismantlingConsignmentNote::class),
+            BelongsTo::make('įranga', 'equipment', Equipment::class)->required(),
+            Text::make('Pavadinimas', 'title')->required(),
+
+            Flexible::make(__('Važtaraščio eilutės'), 'items')->addLayout(__('Eilutė'), 'assembly_ware_line', [
+                Select::make(__('Aksesuaras'), 'accessory_id')->searchable()->nullable()->options(\App\Models\Accessories::all()->pluck('title', 'title')),
+                Number::make(__('Kiekis'), 'qty'),
+            ])->button(__('Pridėti eilutę'))->fullWidth(),
         ];
     }
 

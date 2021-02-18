@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Nova\Accessories;
+use App\Nova\AssemblyConsignmentNote;
 use App\Nova\Client;
+use App\Nova\DismantlingConsignmentNote;
 use App\Nova\Equipment;
 use App\Nova\Event;
 use App\Nova\ExpenseType;
@@ -103,6 +105,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                         'label' => __('Įranga'),
                         'resources' => [
                             Equipment::class,
+                            AssemblyConsignmentNote::class,
+                            DismantlingConsignmentNote::class,
                             Accessories::class,
                             Warehouse::class,
                         ]

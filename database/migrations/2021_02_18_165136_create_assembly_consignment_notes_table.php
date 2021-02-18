@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEquipmentTable extends Migration
+class CreateAssemblyConsignmentNotesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateEquipmentTable extends Migration
      */
     public function up()
     {
-        Schema::create('equipment', function (Blueprint $table) {
+        Schema::create('assembly_consignment_notes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('equipment_id')->constrained();
             $table->string('title');
-            $table->integer('qty');
+            $table->json('items')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateEquipmentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('equipment');
+        Schema::dropIfExists('assembly_consignment_notes');
     }
 }
